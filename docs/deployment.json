@@ -1,0 +1,27 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "rpc_url": "https://studio.genlayer.com/api",
+  "explorer": "https://explorer-studio.genlayer.com",
+  "protocol_version": "ACCORD-1.0.0",
+  "contract": {
+    "file": "contracts/accord.py",
+    "address": "0xF6cbD783355B209b9B37bc977Fc7DC14C86a2a56",
+    "explorer_url": "https://explorer-studio.genlayer.com/address/0xF6cbD783355B209b9B37bc977Fc7DC14C86a2a56",
+    "deploy_transaction": "",
+    "code_sha256": "",
+    "deployed_at": "",
+    "status": "deployed and verified live — all 17 methods answered; verify again with python scripts/verify_deployment.py 0xF6cbD783355B209b9B37bc977Fc7DC14C86a2a56"
+  },
+  "environment": {
+    "GENLAYER_NETWORK": "studionet",
+    "GENLAYER_CHAIN": "61999",
+    "ACCORD_CONTRACT": "0xF6cbD783355B209b9B37bc977Fc7DC14C86a2a56",
+    "GENLAYER_RPC_URL": ""
+  },
+  "notes": [
+    "The address is also built into src/lib/genlayer/config.ts as the fallback, so the interface serves this deployment with zero configuration.",
+    "Set ACCORD_CONTRACT only to override it; pages render on demand so the change is immediate.",
+    "Verify the on-chain code is byte-identical to contracts/accord.py: python scripts/verify_deployment.py 0xF6cbD783355B209b9B37bc977Fc7DC14C86a2a56"
+  ]
+}

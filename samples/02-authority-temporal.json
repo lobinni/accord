@@ -1,0 +1,25 @@
+{
+  "name": "Authority confirmation, temporal — an official date, confirmed",
+  "purpose": "Resolve a date where an official source must agree with independent confirmations.",
+  "expected_outcome": "RESOLVED with the date the official source states once enough independent publishers confirm it; UNRESOLVED_CONFLICT when the official source says nothing or confirmations disagree.",
+  "create_flow_inputs": {
+    "step_1_question": "On what date was the Bitcoin whitepaper first published?",
+    "step_2_sources": [
+      { "url": "https://bitcoin.org/bitcoin.pdf", "label": "The whitepaper", "declared_class": "OFFICIAL" },
+      { "url": "https://en.wikipedia.org/wiki/Bitcoin", "label": "Encyclopedia entry", "declared_class": "INDEPENDENT" },
+      { "url": "https://www.britannica.com/topic/Bitcoin", "label": "Reference entry", "declared_class": "INDEPENDENT" }
+    ],
+    "step_3_answer_form": { "kind": "TEMPORAL" },
+    "step_4_policy": { "kind": "AUTHORITY_CONFIRMATION", "min_confirmations": 1, "stale_contributes": false },
+    "step_5_window": { "opens": "in 5 minutes", "lasts": "2 days", "result_validity": "1 week" },
+    "step_6_freshness": { "older_than": "no freshness requirement", "stale_counts": "no" },
+    "step_7_bond_gen": "0.02",
+    "step_8_review_expect": "authority policy requires the OFFICIAL source; 2 independent publishers besides it"
+  },
+  "manual_checks_after_observe": [
+    "The as-of date on each evidence card appears inside the quoted passage itself.",
+    "The claim value is exactly one date in YYYY-MM-DD form.",
+    "The summary states how many independent groups confirmed the official claim."
+  ],
+  "notes": "PDFs fetch poorly; point the official source at an HTML mirror if observation marks it UNAVAILABLE — that, too, is a valid test of the missing-page rule."
+}

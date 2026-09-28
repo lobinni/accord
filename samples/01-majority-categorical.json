@@ -1,0 +1,29 @@
+{
+  "name": "Majority, categorical — the everyday happy path",
+  "purpose": "Create a request that a majority of independent publishers can answer, observe it live, finalize it, close it and refund the bond.",
+  "expected_outcome": "RESOLVED with the value the majority states; all five write transactions reach FINALIZED.",
+  "create_flow_inputs": {
+    "step_1_question": "Is the GenLayer StudioNet documentation site reachable and reporting itself online?",
+    "step_2_sources": [
+      { "url": "https://docs.genlayer.com/", "label": "Protocol documentation", "declared_class": "OFFICIAL" },
+      { "url": "https://genlayer.foundation/", "label": "Foundation page", "declared_class": "INDEPENDENT" },
+      { "url": "https://github.com/genlayerlabs", "label": "Engineering organization", "declared_class": "INDEPENDENT" }
+    ],
+    "step_3_answer_form": {
+      "kind": "CATEGORICAL",
+      "values": ["ONLINE", "UNREACHABLE", "BROKEN"]
+    },
+    "step_4_policy": { "kind": "MAJORITY", "min_groups": 2, "stale_contributes": false },
+    "step_5_window": { "opens": "in 5 minutes", "lasts": "2 days", "result_validity": "1 week" },
+    "step_6_freshness": { "older_than": "no freshness requirement", "stale_counts": "no" },
+    "step_7_bond_gen": "0.02",
+    "step_8_review_expect": "3 sources grouping into 3 publishers, one voice each"
+  },
+  "manual_checks_after_observe": [
+    "Every source shows its availability and its grounded claim with the exact passage.",
+    "The origin of each source is computed by code (github.com/genlayerlabs reads as github:genlayerlabs).",
+    "The conflict graph shows one node per publisher group.",
+    "The GenLayer lifecycle panel shows the observation transaction and the validators' votes."
+  ],
+  "notes": "Replace the URLs with any pages that genuinely answer your question; sources must be public and static enough to fetch."
+}

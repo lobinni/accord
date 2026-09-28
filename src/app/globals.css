@@ -1,0 +1,374 @@
+@import "tailwindcss";
+
+/* Vendored typefaces (public/fonts) — declared plainly so any host serves
+   them as static files, with zero build-time font resolution. */
+@font-face {
+  font-family: "Syne";
+  src: url("/fonts/syne.ttf") format("truetype-variations");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope.ttf") format("truetype-variations");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Mono";
+  src: url("/fonts/dm-mono-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Mono";
+  src: url("/fonts/dm-mono-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-dm-mono);
+}
+
+:root {
+  --font-syne: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-manrope: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-dm-mono: "DM Mono", ui-monospace, "SFMono-Regular", monospace;
+  --bg: #07110e;
+  --bg-2: #0b1613;
+  --bg-3: #0e1a16;
+  --ink: #fbfcf9;
+  --ink-dim: #aebcb4;
+  --muted: #65706b;
+  --line: rgba(251, 252, 249, 0.09);
+  --line-strong: rgba(251, 252, 249, 0.16);
+  --mint: #35d5b4;
+  --mint-deep: #087f71;
+  --mint-soft: rgba(53, 213, 180, 0.12);
+  --amber: #f0a74b;
+  --gold: #f5e7ad;
+  --bronze: #eed4c6;
+  --danger: #ff4d4f;
+  --silver: #dce8e7;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px 700px at 85% -10%, rgba(53, 213, 180, 0.08), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(8, 127, 113, 0.10), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(53, 213, 180, 0.28);
+  color: #fbfcf9;
+}
+
+/* ── typography ─────────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  text-transform: none;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.label--mint {
+  color: var(--mint);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+/* ── panels ─────────────────────────────────────────────────────────────── */
+.pane {
+  background: linear-gradient(180deg, rgba(251, 252, 249, 0.035), rgba(251, 252, 249, 0.015));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.pane--raised {
+  border-color: var(--line-strong);
+  background: linear-gradient(180deg, rgba(53, 213, 180, 0.06), rgba(251, 252, 249, 0.02));
+}
+
+.pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pane-body {
+  padding: 18px;
+}
+
+/* ── buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 13px 22px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  background: rgba(251, 252, 249, 0.03);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: rgba(251, 252, 249, 0.08);
+}
+
+.btn--mint {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: #052019;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(53, 213, 180, 0.28);
+}
+
+.btn--mint:hover {
+  background: #4ce8c7;
+}
+
+.btn--ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink-dim);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── chips ──────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  background: rgba(251, 252, 249, 0.03);
+}
+
+.chip .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--muted);
+}
+
+.chip--live {
+  color: #b9f5e4;
+  border-color: rgba(53, 213, 180, 0.4);
+  background: rgba(53, 213, 180, 0.1);
+}
+
+.chip--live .dot {
+  background: var(--mint);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+.chip--warn {
+  color: #ffe1b8;
+  border-color: rgba(240, 167, 75, 0.4);
+  background: rgba(240, 167, 75, 0.09);
+}
+
+.chip--warn .dot {
+  background: var(--amber);
+}
+
+.chip--danger {
+  color: #ffc6c7;
+  border-color: rgba(255, 77, 79, 0.45);
+  background: rgba(255, 77, 79, 0.09);
+}
+
+.chip--danger .dot {
+  background: var(--danger);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ── fields ─────────────────────────────────────────────────────────────── */
+.field {
+  display: block;
+  width: 100%;
+  background: rgba(7, 17, 14, 0.55);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field:focus {
+  border-color: rgba(53, 213, 180, 0.55);
+  box-shadow: 0 0 0 3px rgba(53, 213, 180, 0.12);
+}
+
+.field::placeholder {
+  color: #52625b;
+}
+
+select.field option {
+  background: #0b1613;
+}
+
+/* ── network background ─────────────────────────────────────────────────── */
+@keyframes node-float {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes path-drift {
+  to {
+    stroke-dashoffset: -60px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.enter-up {
+  animation: enter-up 0.7s cubic-bezier(0.22, 0.8, 0.28, 1) both;
+}
+
+.enter-up--1 { animation-delay: 0.06s; }
+.enter-up--2 { animation-delay: 0.14s; }
+.enter-up--3 { animation-delay: 0.22s; }
+.enter-up--4 { animation-delay: 0.3s; }
+
+.net-node {
+  position: absolute;
+  border: 1px solid rgba(53, 213, 180, 0.35);
+  background: rgba(11, 18, 16, 0.82);
+  box-shadow: 0 0 24px rgba(53, 213, 180, 0.12), inset 0 0 12px rgba(53, 213, 180, 0.06);
+  animation: node-float 6s ease-in-out infinite;
+}
+
+.net-path {
+  stroke: rgba(53, 213, 180, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 5 7;
+  fill: none;
+  animation: path-drift 5s linear infinite;
+}
+
+.net-path--dim {
+  stroke: rgba(251, 252, 249, 0.1);
+  animation-duration: 9s;
+}
+
+/* ── tier gradients (honor gradients) ───────────────────────────────────── */
+.grad-gold {
+  background: linear-gradient(135deg, #f5e7ad 0%, #c9a545 55%, #936800 100%);
+  color: #241c04;
+}
+
+.grad-silver {
+  background: linear-gradient(135deg, #f8fcf9 0%, #dce8e7 60%, #93a8a5 100%);
+  color: #0b1210;
+}
+
+.grad-bronze {
+  background: linear-gradient(135deg, #eed4c6 0%, #c98c5f 55%, #8d5132 100%);
+  color: #241209;
+}
+
+/* ── prose blocks ───────────────────────────────────────────────────────── */
+.hr {
+  height: 1px;
+  background: var(--line);
+  border: none;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(53, 213, 180, 0.3);
+}
