@@ -22,7 +22,7 @@ environment value and restart.
 
 ## Last update
 
-**2026-09-29 — Source-integrity revision and one canonical release.**
+**2026-10-21 — Source-integrity revision and one canonical release.**
 
 - **One canonical release everywhere.** `0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d`
   is the only address referenced anywhere in this repository — README,
@@ -58,7 +58,7 @@ environment value and restart.
   word changes do, that claim dates and server metadata are recorded
   separately, and that unreadable sources carry no provenance.
 
-**2026-09-28 — Post-review protocol hardening, redeployed and verified.**
+**2026-10-20 — Post-review protocol hardening, redeployed and verified.**
 
 Contract-level:
 
