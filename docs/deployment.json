@@ -1,0 +1,42 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "rpc_url": "https://studio.genlayer.com/api",
+  "explorer": "https://explorer-studio.genlayer.com",
+  "protocol_version": "ACCORD-1.0.0",
+  "release": {
+    "canonical_address": "0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d",
+    "explorer_url": "https://explorer-studio.genlayer.com/address/0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d",
+    "source_file": "contracts/accord.py",
+    "source_sha256": "49ec9a1f770347ddf1842f7a90a2bbca518c705e451f229d8b79de1fea1c9d4b",
+    "source_sha256_algorithm": "sha256 of contracts/accord.py with line endings normalized to LF",
+    "deployed_at": "2026-09-29",
+    "status": "canonical release — deployed source is content-identical to contracts/accord.py; all 17 methods and empty-index views verified live"
+  },
+  "review_requirements": {
+    "freshness": "undated evidence is STALE under every non-zero freshness requirement and cannot steer time-sensitive results",
+    "layered_evidence_state": "availability, claim presence and freshness are independent; readable no-claim pages complete as unresolved evidence",
+    "classification_accuracy": "one shared classifier preserves supporting, conflicting, uncontested, no-claim, excluded and unavailable records",
+    "dependency_cycles": "publisher grouping detects citation loops explicitly and collapses each loop to one deterministic voice",
+    "validity_and_finality": "validity has a 360-second floor; proposals finalized after expiry become EXPIRED, never current",
+    "source_integrity": "each readable page stores an unmasked exact whole-page digest for provenance and a separate figure-masked digest for consensus comparison",
+    "date_provenance": "date_basis separates a page-stated claim date from HTTP Last-Modified metadata",
+    "long_page_coverage": "head-plus-tail excerpts carry an omission marker and an excerpted flag; no omitted passage can ground a claim"
+  },
+  "environment": {
+    "GENLAYER_NETWORK": "studionet",
+    "GENLAYER_CHAIN": "61999",
+    "ACCORD_CONTRACT": "0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d",
+    "GENLAYER_RPC_URL": ""
+  },
+  "verification": {
+    "code_identity": "python scripts/verify_deployment.py 0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d",
+    "schema_pinning": "the interface checks all 17 method names, parameter order and payable flags, then performs a live get_protocol_info round-trip",
+    "explorer": "https://explorer-studio.genlayer.com/address/0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d",
+    "full_lifecycle": "ACCORD_DEPLOYER_KEY=<funded key> ACCORD_CONTRACT=0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d python scripts/lifecycle_e2e.py"
+  },
+  "notes": [
+    "This is the only contract address referenced by the application, documentation, tests and CI.",
+    "docs/live-e2e.json is the executed transaction record produced by scripts/lifecycle_e2e.py; scripts/render_e2e.py renders it into docs/e2e.md."
+  ]
+}

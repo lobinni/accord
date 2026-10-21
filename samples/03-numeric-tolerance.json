@@ -1,0 +1,31 @@
+{
+  "name": "Numeric with tolerance — figures that move between fetches",
+  "purpose": "Resolve a number where honest pages quote slightly different figures; the request's tolerance band decides agreement.",
+  "expected_outcome": "RESOLVED when the leading figures sit within tolerance_bps of each other; UNRESOLVED_CONFLICT when they exceed it.",
+  "create_flow_inputs": {
+    "step_1_question": "What is the current total market capitalization of Bitcoin in USD?",
+    "step_2_sources": [
+      { "url": "https://coinmarketcap.com/currencies/bitcoin/", "label": "Market tracker A", "declared_class": "UNKNOWN" },
+      { "url": "https://www.coingecko.com/en/coins/bitcoin", "label": "Market tracker B", "declared_class": "UNKNOWN" },
+      { "url": "https://coincodex.com/crypto/bitcoin/", "label": "Market tracker C", "declared_class": "UNKNOWN" }
+    ],
+    "step_3_answer_form": {
+      "kind": "NUMERIC",
+      "unit": "USD",
+      "decimals": 0,
+      "tolerance_bps": 500
+    },
+    "step_4_policy": { "kind": "MAJORITY", "min_groups": 2, "stale_contributes": false },
+    "step_5_window": { "opens": "in 5 minutes", "lasts": "1 day", "result_validity": "1 hour" },
+    "step_6_freshness": { "older_than": "24 hours", "stale_counts": "no" },
+    "step_7_bond_gen": "0.02",
+    "step_8_review_expect": "tolerance of 5.00% rendered in the review; validity of one hour"
+  },
+  "manual_checks_after_observe": [
+    "Each numeric claim appears verbatim inside its grounded quote — no unit conversion.",
+    "Claims outside the freshness requirement are marked excluded, never conflicting.",
+    "The reconciled state is the median figure of the winning cluster.",
+    "After one hour the detail page flags the result as past validity; record expiry live."
+  ],
+  "notes": "Some trackers block bots; an UNAVAILABLE row is not a contradiction — that behavior is part of what you are verifying."
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Threshold share — the leading claim must clear a bar",
+  "purpose": "Show a policy that resolves only when the leading claim's share of counted publishers reaches the set basis points.",
+  "expected_outcome": "RESOLVED when the leading claim reaches the share; UNRESOLVED_CONFLICT when it falls short even with a plurality.",
+  "create_flow_inputs": {
+    "step_1_question": "Is the official GenLayer token contract address published for StudioNet?",
+    "step_2_sources": [
+      { "url": "https://docs.genlayer.com/", "label": "Documentation", "declared_class": "UNKNOWN" },
+      { "url": "https://genlayer.foundation/", "label": "Foundation", "declared_class": "UNKNOWN" },
+      { "url": "https://github.com/genlayerlabs", "label": "Engineering org", "declared_class": "UNKNOWN" },
+      { "url": "https://explorer-studio.genlayer.com/", "label": "Explorer", "declared_class": "UNKNOWN" }
+    ],
+    "step_3_answer_form": { "kind": "BOOLEAN" },
+    "step_4_policy": { "kind": "THRESHOLD", "threshold_bps": 7500, "min_groups": 3, "stale_contributes": false },
+    "step_5_window": { "opens": "in 5 minutes", "lasts": "2 days", "result_validity": "1 day" },
+    "step_6_freshness": { "older_than": "1 week", "stale_counts": "no" },
+    "step_7_bond_gen": "0.02",
+    "step_8_review_expect": "threshold rendered as 75% of counted publishers; minimum three independent publishers"
+  },
+  "manual_checks_after_observe": [
+    "The summary states how many of the counted groups back the state.",
+    "Lower the threshold to 6001 (60.01%) in a variant run to see the same evidence resolve differently.",
+    "Raise it to 9000 (90%): identical evidence goes UNRESOLVED_CONFLICT — the bar does the deciding, in code."
+  ]
+}

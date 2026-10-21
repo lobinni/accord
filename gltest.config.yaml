@@ -1,0 +1,16 @@
+# GenVM local test configuration for the ACCORD intelligent contract.
+contracts_dir: contracts
+consensus:
+  default_leader:
+    provider: openai
+    model: gpt-4o
+    config:
+      temperature: 0.0
+      json_mode: true
+  default_validators:
+    count: 2
+    provider: openai
+    model: gpt-4o-mini
+    config:
+      temperature: 0.0
+      json_mode: true

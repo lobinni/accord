@@ -1,0 +1,36 @@
+{
+  "protocol_version": "ACCORD-1.0.0",
+  "policy_rules": "ACCORD-POLICY-1",
+  "network": "studionet",
+  "chain_id": 61999,
+  "write_methods": [
+    { "name": "create_accord", "payable": true, "args": ["question", "terms_json", "bond_required"], "returns": "accord_id" },
+    { "name": "cancel_accord", "payable": false, "args": ["accord_id"], "returns": null },
+    { "name": "observe_accord", "payable": false, "args": ["accord_id"], "returns": "result_id" },
+    { "name": "finalize_result", "payable": false, "args": ["accord_id"], "returns": null },
+    { "name": "expire_result", "payable": false, "args": ["accord_id"], "returns": null },
+    { "name": "close_accord", "payable": false, "args": ["accord_id"], "returns": null },
+    { "name": "refund_bond", "payable": false, "args": ["accord_id"], "returns": "amount_atto" }
+  ],
+  "view_methods": [
+    { "name": "get_protocol_info", "args": [] },
+    { "name": "get_accord", "args": ["accord_id"] },
+    { "name": "get_result", "args": ["result_id"] },
+    { "name": "get_results", "args": ["accord_id", "offset", "limit"] },
+    { "name": "get_history", "args": ["accord_id", "offset", "limit"] },
+    { "name": "list_accords", "args": ["offset", "limit"] },
+    { "name": "list_by_creator", "args": ["creator", "offset", "limit"] },
+    { "name": "list_transitions", "args": ["offset", "limit"] },
+    { "name": "get_returned_deposits", "args": ["offset", "limit"] },
+    { "name": "returned_for", "args": ["sender", "offset", "limit"] }
+  ],
+  "request_statuses": ["SUBMITTED", "PROPOSED", "FINALIZED", "CLOSED", "FAILED", "CANCELLED"],
+  "reconciliation_statuses": ["RESOLVED", "UNRESOLVED_CONFLICT", "UNRESOLVED_INSUFFICIENT"],
+  "evidence_statuses": ["SUPPORTING", "CONFLICTING", "UNCONTESTED", "NO_CLAIM", "EXCLUDED", "UNAVAILABLE"],
+  "policies": ["MAJORITY", "THRESHOLD", "AUTHORITY_CONFIRMATION", "STRICT"],
+  "result_kinds": ["CATEGORICAL", "BOOLEAN", "NUMERIC", "TEMPORAL"],
+  "finality_delay_seconds": 300,
+  "min_observation_interval": 900,
+  "min_bond_atto": "1000000000000000",
+  "max_bond_atto": "1000000000000000000000000"
+}

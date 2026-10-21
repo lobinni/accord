@@ -1,0 +1,58 @@
+# ACCORD — continuous integration
+# Runs the interface test suites and the production build on every push and
+# pull request. GenVM direct-mode tests require the GenLayer executor bundle;
+# they run as a second job and download the tooling on the fly.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontend:
+    name: Interface (typecheck, unit tests, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Interface unit tests (pinned to the deployed schema)
+        run: npx vitest run tests/frontend
+
+      - name: Production build
+        run: npm run build
+        env:
+          GENLAYER_NETWORK: studionet
+          GENLAYER_CHAIN: "61999"
+          ACCORD_CONTRACT: "0x68b3a9AbA75bdA7d6da3C8c2178150421791aC0d"
+
+  genvm-direct:
+    name: Contract (GenVM direct mode)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test tooling
+        run: pip install -r requirements.txt genlayer-test
+
+      - name: Syntax & structure check for the contract
+        run: python -c "import ast; ast.parse(open('contracts/accord.py', encoding='utf-8').read()); print('contract parses')"
+
+      - name: GenVM direct-mode suite
+        run: python -m pytest tests/direct -q

@@ -1,0 +1,31 @@
+{
+  "name": "Multiple rounds + expiry — the state engine over time",
+  "purpose": "Observe more than once (respecting the 15-minute interval), finalize a second round, then record the first result's expiry once its validity lapses.",
+  "expected_outcome": "Two results under one request; a short first validity yields an EXPIRED transition in the state history; the second round becomes the current state.",
+  "create_flow_inputs": {
+    "step_1_question": "Is the documentation site currently serving its status page?",
+    "step_2_sources": [
+      { "url": "https://docs.genlayer.com/", "label": "Documentation", "declared_class": "OFFICIAL" },
+      { "url": "https://github.com/genlayerlabs", "label": "Engineering org", "declared_class": "INDEPENDENT" }
+    ],
+    "step_3_answer_form": { "kind": "BOOLEAN" },
+    "step_4_policy": { "kind": "MAJORITY", "min_groups": 2, "stale_contributes": false },
+    "step_5_window": { "opens": "in 5 minutes", "lasts": "2 days", "result_validity": "20 minutes" },
+    "step_6_freshness": { "older_than": "24 hours", "stale_counts": "no" },
+    "step_7_bond_gen": "0.02",
+    "step_8_review_expect": "validity of twenty minutes makes expiry observable within one sitting"
+  },
+  "run_order": [
+    "Observe as soon as the window opens; finalize after the 300 s delay (round 1 → current).",
+    "Wait for the 20-minute validity to lapse: the detail page flags the result as past validity.",
+    "Send 'Record expiry': the state history gains an EXPIRED transition.",
+    "Observe again (the 15-minute interval has also passed by then) and finalize round 2: the current state returns, with two immutable results recorded.",
+    "Close after the window ends and refund the bond."
+  ],
+  "manual_checks": [
+    "Observe during the cooldown is disabled with the next possible observation time.",
+    "Round numbers increment; earlier rounds remain readable in the results list.",
+    "A past-validity result is never presented as current, before and after the expiry act.",
+    "Every transition appears, oldest first, in the state history."
+  ]
+}
